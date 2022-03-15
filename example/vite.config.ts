@@ -2,6 +2,7 @@ import vue from '@vitejs/plugin-vue'
 import viteColor from '../src'
 
 export default {
+	base: './',
 	plugins: [
 		vue(),
 		viteColor([

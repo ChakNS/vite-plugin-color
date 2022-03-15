@@ -1,16 +1,9 @@
-const EXEGESIS_REG = /\\\\?n|\n|\\\\?r|\/\*[\s\S]+?\*\//g
-const SPACE_REG = /\s+/g
-const TRIM_REG = /(^|,)\s+|\s+($)/g
-const SUB_CSS_REG = /\s*>\s*/g
 const DATA_URL_REG = /url\s*\([\\'"\s]*data:/
 const QUOT_REG = /\\+(['"])/g
 const LEFT_BRACKET = '{'
 const RIGHT_BRACKET = '}'
 
-const flatSelector = (s: string) => {
-  s = s.replace(TRIM_REG, '$1').replace(SUB_CSS_REG, '>').replace(SPACE_REG, ' ')
-  return s.includes(';') ? s.split(';')[1] : s
-}
+const pullChart = (s: string) => s.includes(';') ? s.split(';')[1] : s
 
 export default function extractColor(extractRegs: RegExp[]) {
   const isExtract = (code: string) => extractRegs.some(reg => reg.test(code))
@@ -26,15 +19,13 @@ export default function extractColor(extractRegs: RegExp[]) {
         i++
       }
       if (isExtract(rule)) {
-        result.push(rule.replace(SPACE_REG, ' ').trim())
+        result.push(rule)
       }
     }
     return result
   }
 
   const handler = (code: string) => {
-    code = code.replace(EXEGESIS_REG, '')
-    console.log(222, code)
     const stack = []
     const len = code.length
     let contanter = ''
@@ -93,14 +84,14 @@ export default function extractColor(extractRegs: RegExp[]) {
       if (curr.content.includes(LEFT_BRACKET)) {
         const keyframesMatched = handler(curr.content)
         if (keyframesMatched && keyframesMatched.length) {
-          rules = [curr.content.replace(SPACE_REG, '')]
+          rules = [curr.content]
         }
       } else {
         rules = extractor(curr.content)
       }
 
       if (rules.length) {
-        curr.selector = flatSelector(curr.selector)
+        curr.selector = pullChart(curr.selector)
         return pre.concat(`${curr.selector}{${rules.join(';')}}`)
       }
 

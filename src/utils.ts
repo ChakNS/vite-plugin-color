@@ -1,4 +1,5 @@
 import CleanCss, { OptionsPromise } from 'clean-css'
+import { propType, optionType } from './types'
 
 export async function minifyCSS(css: string, options: OptionsPromise ) {
   const res = await new CleanCss(Object.assign({ rebase: false }, options)).minify(css)
@@ -13,4 +14,15 @@ export async function minifyCSS(css: string, options: OptionsPromise ) {
   }
 
   return res.styles
+}
+
+export const patchReg = (s: string) => new RegExp(s.replace(/\s/g, '').replace(/,/g, ',\\s*') + '([\\da-f]{2})?(\\b|\\)|,|\\s)', 'i')
+
+export const isTargetFile = (name: string) => /\.css|scss|less|styl$/.test(name)
+
+export const formatOption = (options: optionType) => {
+  if (!Array.isArray(options)) {
+    return <Array<propType>>[options]
+  }
+  return options
 }
