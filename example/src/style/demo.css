@@ -1,0 +1,18 @@
+.css-demo-1 {
+  color: #eee;
+}
+
+@keyframes css-keyframes {
+  from {
+    color: #ccc;
+  }
+
+  to {
+    color: #eee;
+  }
+}
+
+.css-demo-red-color {
+  color: red;
+  border: 1px solid #eee;
+}
