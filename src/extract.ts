@@ -1,7 +1,4 @@
-const DATA_URL_REG = /url\s*\([\\'"\s]*data:/
-const QUOT_REG = /\\+(['"])/g
-const LEFT_BRACKET = '{'
-const RIGHT_BRACKET = '}'
+import { DATA_URL_REG, QUOT_REG, LEFT_BRACKET, RIGHT_BRACKET } from './contants'
 
 const pullChart = (s: string) => s.includes(';') ? s.split(';')[1] : s
 

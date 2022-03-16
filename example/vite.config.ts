@@ -13,11 +13,17 @@ export default {
       },
       {
         extract: ['#409eff'],
+        external: [
+          'https://unpkg.com/element-ui/lib/theme-chalk/index.css'
+        ],
         output: 'themes/element-primary.css',
       },
       {
         extract: ['#F56C6C'],
         output: 'themes/element-danger-success.css',
+        external: [
+          'https://unpkg.com/element-ui/lib/theme-chalk/index.css'
+        ],
         transform: code => code.replace(new RegExp('#F56C6C', 'gi'), '#67C23A'),
       },
     ]),

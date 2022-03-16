@@ -1,5 +1,6 @@
 import CleanCss, { OptionsPromise } from 'clean-css'
 import { propType, optionType } from './types'
+import request from 'request'
 
 export async function minifyCSS(css: string, options: OptionsPromise ) {
   const res = await new CleanCss(Object.assign({ rebase: false }, options)).minify(css)
@@ -25,4 +26,15 @@ export const formatOption = (options: optionType) => {
     return <Array<propType>>[options]
   }
   return options
+}
+
+export const fetchFile = (url: string) => {
+  return new Promise((resolve, reject) => {
+    request(url, (error: any, response: any, data: any) => {
+      if (error) {
+        reject(error)
+      }
+      resolve(data)
+    })
+  })
 }

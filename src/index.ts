@@ -2,6 +2,9 @@ import extractColor from './extract'
 import { HtmlTagDescriptor, ResolvedConfig } from 'vite'
 import { minifyCSS, patchReg, isTargetFile, formatOption } from './utils'
 import { propType, optionType } from './types'
+import { LINK_CSS_REG } from './contants'
+import { fetchFile } from './utils'
+import chalk from 'chalk'
 
 export { propType, optionType, HtmlTagDescriptor }
 
@@ -45,9 +48,34 @@ export default (options: optionType) => {
     async buildEnd() {
       if (isProd) {
         for await (const file of outputFiles) {
+          if (file.external?.length) {
+            for await (const url of file.external) {
+              if (LINK_CSS_REG.test(url)) {
+                try {
+                  let code:string | unknown
+                  if (cache.has(url)) {
+                    code = cache.get(url)
+                  } else {
+                    console.log(chalk.cyan('\n🛠️ [vite-plugin-color]') + `- extracting external css from ${url}...`)
+                    code = await fetchFile(url)
+                    cache.set(url, code as string)
+                  }
+  
+                  if (typeof code === 'string') {
+                    const extractCode = extractColor(file.extractRegs)(code).join('')
+                    file.code += file.transform ? `${file.transform(extractCode)}` : extractCode
+                  } else throw new Error('error for fetch external css')
+                } catch (error) {
+                  console.error(chalk.cyan('❌ [vite-plugin-color]') + ` - ${error}`)
+                }
+              }
+            }
+          }
+
           if (file.minify !== false) {
             file.code = await minifyCSS(file.code, Object.assign({ returnPromise: true }, file.minifyOptions))
           }
+
           // @ts-ignore
           this.emitFile({
             type: 'asset',
@@ -56,8 +84,9 @@ export default (options: optionType) => {
             source: file.code,
           })
         }
+        console.log(chalk.cyan('✨ [vite-plugin-color]') + ` - successfully!\n`)
+        cache.clear()
       }
-      cache.clear()
     },
     transformIndexHtml() {
       if (isProd) {

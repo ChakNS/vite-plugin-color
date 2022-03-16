@@ -4,6 +4,7 @@ import { HtmlTagDescriptor } from 'vite'
 export interface propType {
   extract: string[]
   transform?: (code: string) => string
+  external?: string[]
   output?: string
   minify?: boolean
   minifyOptions?: OptionsPromise
