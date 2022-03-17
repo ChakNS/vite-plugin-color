@@ -1,18 +1,18 @@
 <h2 align="left">vite-plugin-color</h2>
 
-**中文** | [English](./README.EN.md)
+**English** | [中文文档](./README.zh_CN.md)
 
-<p align="left">自动改变指定颜色并输出主题包</p>
+<p align="left">Automatically change colors and output theme packs for Vite</p>
 
-## 用法
+## Usage
 
-### 安装
+### Install
 
 **node version:** >= 14.0.0
 
 **vite version:** >= 2.0.0
 
-```bash
+```
 yarn add vite-plugin-color -D
 
 or
@@ -20,9 +20,9 @@ or
 npm i vite-plugin-color -D
 ```
 
-### 使用
+### Config
 
-`vite.config.js`添加插件配置
+Add it to `vite.config.js`
 ```javascript
 // vite.config.js
 import viteColor from 'vite-plugin-color'
@@ -42,17 +42,18 @@ export default {
 
 ## Options
 
-参数可以是单个对象，也可以是对象数组
+The parameters can be a single object or an array of objects.
 
-| 参数 | 类型 | 必须 | 默认值 | 说明 |
+| param | type | required | default | desc |
 | --- | --- | --- | --- | --- |
-| extract | `string[]` | 是 | - | 需要抽取的色值，暂不支持内联样式或styled |
-| output | `string` | 否 | - | 文件输出路径 |
-| external | `string[]` | 否 | - | 外部css文件链接，如`cdn` |
-| minify | `boolean` | 否 | `true` | 是否压缩 |
-| minifyOptions | `<OptionsPromise>` | 否 | `{ returnPromise: true }` | 压缩参数，遵循`clean-css` |
-| transform | `(code:string) => string` | 否 | - | 对匹配内容的处理函数 |
-| injectTo | `head`或`body`或`head-prepend`或`body-prepend`或`<HtmlTagDescriptor>` | 否 | - | 生产环境自动注入加载的 css, 支持自定义，遵循`vite HtmlTagDescriptor` |
+| extract | `string[]` | Y | - | The color value that needs to be extracted. Inline styles or styled are not supported at this time. |
+| output | `string` | N | - | The file output path |
+| external | `string[]` | N | - | External css file links like 'cdn' |
+| minify | `boolean` | N | `true` | Whether to minify |
+| minifyOptions | `<OptionsPromise>` | N | - | Minify options，follow `clean-css` |
+| transform | `(code:string) => string` | N | - | The handler of the matching content |
+| injectTo | `head` or `body` or `head-prepend` or `body-prepend` or `<HtmlTagDescriptor>` | N | - | Production environment auto-injects loaded css, supports customization, follows `vite HtmlTagDescriptor` |
+
 ## Reference
 
 [webpack-theme-color-replacer](https://github.com/hzsrc/webpack-theme-color-replacer)
