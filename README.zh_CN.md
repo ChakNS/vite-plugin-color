@@ -1,7 +1,5 @@
 <h2 align="left">vite-plugin-color</h2>
 
-**中文** | [English](./README.EN.md)
-
 <p align="left">自动改变指定颜色并输出主题包</p>
 
 ## 用法
