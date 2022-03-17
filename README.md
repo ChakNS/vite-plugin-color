@@ -44,19 +44,28 @@ export default {
 
 The parameters can be a single object or an array of objects.
 
-| param | type | required | default | desc |
-| --- | --- | --- | --- | --- |
-| extract | `string[]` | Y | - | The color value that needs to be extracted. Inline styles or styled are not supported at this time. |
-| output | `string` | N | - | The file output path |
-| external | `string[]` | N | - | External css file links like 'cdn' |
-| minify | `boolean` | N | `true` | Whether to minify |
-| minifyOptions | `<OptionsPromise>` | N | - | Minify options，follow `clean-css` |
-| transform | `(code:string) => string` | N | - | The handler of the matching content |
-| injectTo | `head` or `body` or `head-prepend` or `body-prepend` or `<HtmlTagDescriptor>` | N | - | Production environment auto-injects loaded css, supports customization, follows `vite HtmlTagDescriptor` |
+```ts
+export interface propType {
+  // The color value that needs to be extracted.
+  // Inline styles or styled are not supported at this time.
+  extract: string[]
+  // The handler of the matching content
+  transform?: (code: string) => string
+  // External css file links like 'cdn'
+  external?: string[]
+  // The file output path
+  output?: string
+  // Whether to minify. @default true
+  minify?: boolean
+  // Minify options，follow `clean-css`
+  minifyOptions?: OptionsPromise
+  // Production environment auto-injects loaded css,
+  // supports customization, follows `vite HtmlTagDescriptor`
+  injectTo?: 'head' | 'body' | 'head-prepend' | 'body-prepend' | HtmlTagDescriptor
+}
 
-## Reference
-
-[webpack-theme-color-replacer](https://github.com/hzsrc/webpack-theme-color-replacer)
+export type optionType = Array<propType> | propType
+```
 
 ## License
 
