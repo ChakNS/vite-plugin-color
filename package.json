@@ -1,5 +1,5 @@
 {
-  "name": "vite-color",
+  "name": "vite-plugin-color",
   "description": "Automatically change colors and output theme packs for Vite",
   "version": "0.0.1",
   "main": "./dist/index.js",
@@ -17,10 +17,10 @@
   "author": "Chak <chakcheung4565@outlook.com>",
   "repository": {
     "type": "git",
-    "url": "https://github.com/subwaytime/vite-aliases"
+    "url": "https://github.com/ChakNS/vite-plugin-color"
   },
-  "homepage": "https://github.com/subwaytime/vite-aliases#readme",
-  "bugs": "https://github.com/subwaytime/vite-aliases/issues",
+  "homepage": "https://github.com/ChakNS/vite-plugin-color#readme",
+  "bugs": "https://github.com/ChakNS/vite-plugin-color/issues",
   "files": [
     "dist"
   ],
@@ -30,7 +30,8 @@
     "color",
     "theme",
     "auto",
-    "output"
+    "output",
+    "extract"
   ],
   "scripts": {
     "update:packages": "npm update --save-dev && npm update --save",
