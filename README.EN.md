@@ -21,7 +21,7 @@ npm i vite-plugin-color -D
 ### Config
 
 Add it to `vite.config.js`
-```
+```javascript
 // vite.config.js
 import viteColor from 'vite-plugin-color'
 
