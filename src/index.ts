@@ -34,7 +34,6 @@ export default (options: optionType) => {
       isProd = config.command === 'build'
     },
     async transform(code: string, id: string) {
-      // todo 外部css文件
       if (isTargetFile(id)) {
         if (cache.has(id)) {
           return { code: cache.get(id), map: null }
@@ -90,7 +89,7 @@ export default (options: optionType) => {
     },
     transformIndexHtml() {
       if (isProd) {
-        const injectTags = outputFiles.map(item => {
+        const injectTags = outputFiles.filter(item => item.injectTo).map(item => {
           if (typeof item.injectTo === 'object') return item.injectTo
           return {
             tag: 'link',
@@ -98,7 +97,7 @@ export default (options: optionType) => {
               rel: 'stylesheet',
               href: `./${item.output}`,
             },
-            injectTo: item.injectTo || 'head',
+            injectTo: item.injectTo,
           }
         })
 
