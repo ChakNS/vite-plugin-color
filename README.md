@@ -12,7 +12,7 @@
 
 **vite version:** >= 2.0.0
 
-```
+```bash
 yarn add vite-plugin-color -D
 
 or
@@ -23,7 +23,7 @@ npm i vite-plugin-color -D
 ### 使用
 
 `vite.config.js`添加插件配置
-```
+```javascript
 // vite.config.js
 import viteColor from 'vite-plugin-color'
 
